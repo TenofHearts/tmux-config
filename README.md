@@ -30,14 +30,22 @@ Reload the settings in a running tmux session:
 tmux source-file "$HOME/.tmux.conf"
 ```
 
+New windows and panes use `TERM=screen-256color` so zsh syntax highlighting can
+use its configured 256-color palette. After reloading, open a new pane/window
+to pick up this setting. In an existing zsh pane, run
+`export TERM=screen-256color` to refresh its terminal capabilities.
+
 ## Bindings
 
 The prefix is **Ctrl+a**: release both keys, then press the next key. Press
 Ctrl+a twice to send it to the application. Mouse support is enabled;
 automatic window renaming is disabled.
+Escape waits only 10 ms for a possible Alt-key sequence, so exiting modes and
+canceling prompts feels immediate.
 
 | Entry | Mode | Badge color |
 | --- | --- | --- |
+| Prefix `Ctrl+a` | Command mode, waiting for the next key | Yellow |
 | Prefix `w` | Window picker, then window controls after selection | Blue |
 | Prefix `p` | Pane controls | Green |
 | Prefix `r` | Resize controls | Orange |
@@ -49,17 +57,21 @@ split, rename, and confirmed close. **Enter or Escape exits** to normal terminal
 input. Unbound keys are ignored. Closing the last pane/window can still end its
 session. Prefix shortcuts remain available for changing modes or detaching.
 
-**Ctrl+h opens help** for the current mode in a scrollable `less` popup. It exits
+**`?` opens help** for the current mode in a scrollable `less` popup. It exits
 the original mode/picker first; `q` closes help and returns to normal input.
 Help supports arrows, page scrolling, and `/` search. Custom-mode help is
 generated from the active bindings and their descriptions; built-in picker
 controls are documented separately in the helper script.
 
-Ctrl+h and Backspace can produce the same code in some terminals. In that case,
-Backspace also opens help while a mode is active. Outside modes, Ctrl+h is
-forwarded to the application. While a rename/confirmation prompt is open,
-keys belong to that prompt; Enter accepts and Escape cancels it, returning to
-the custom mode.
+Outside modes, `?` is forwarded to the application. In copy mode, `?` opens
+help in place of backward search; `/` still searches forward.
+While a rename/confirmation prompt is open,
+keys belong to that prompt. Enter accepts a rename; **x confirms closing** a
+pane/window and **Escape cancels**, returning to the custom mode. Close prompts
+display `x: yes | Esc: no` in the status bar. The direct prefix `x` (close pane)
+and prefix `&` (close window) shortcuts use these same confirmation keys.
+The built-in pickers' own `x`/`X` delete prompts use tmux's fixed `y` confirmation
+in tmux 3.2; select a window and use window mode `x` for the customized prompt.
 
 Alt+h/j/k/l and Alt+Arrow are left to the desktop window manager, including
 GlazeWM. Mode colors are displayed in the status badge rather than changing

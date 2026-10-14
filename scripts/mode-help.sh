@@ -20,7 +20,7 @@ Window/session picker controls (tmux 3.2+):
   l / +            Expand selected item
   Enter            Select item
   Escape / q       Cancel picker and return to normal input
-  Ctrl+h           Exit picker and show this help
+  ?                Exit picker and show this help
   Alt+- / Alt++    Collapse / expand all items
   Ctrl+s           Search by name
   n                Repeat search
@@ -48,7 +48,7 @@ HELP
             return 1
             ;;
     esac
-    printf '\nCtrl+h may also be sent by Backspace, depending on your terminal.\n'
+    printf '\nPress ? in a mode or picker to exit it and open help.\n'
     printf 'Custom modes: Enter/Escape exit; unbound keys are ignored.\n'
     printf 'Actions stay in their mode until you explicitly exit or open help.\n'
 }
