@@ -135,7 +135,7 @@ previous window (prefix `p` now enters pane mode). Prefix `d` detaches.
 Prefix `?` lists all bindings. Prefix `]` pastes the tmux buffer.
 
 In copy mode, `h/j/k/l` navigate, Space starts selection, Enter copies and exits,
-and `q` exits. Copying uses tmux's buffer; clipboard behavior depends on terminal
+and `q` or Escape exits. Copying uses tmux's buffer; clipboard behavior depends on terminal
 support and has not been customized here.
 
 ## Sync between machines
