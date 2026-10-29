@@ -46,7 +46,7 @@ canceling prompts feels immediate.
 | Entry | Mode | Badge color |
 | --- | --- | --- |
 | Prefix `Ctrl+a` | Command mode, waiting for the next key | Yellow |
-| Prefix `w` | Window picker, then window controls after selection | Blue |
+| Prefix `w` | Window controls | Blue |
 | Prefix `p` | Pane controls | Green |
 | Prefix `r` | Resize controls | Orange |
 | Prefix `s` | Built-in session picker | Blue |
@@ -79,9 +79,10 @@ the entire status bar.
 
 ### Window mode
 
-Prefix `w` opens the built-in window picker immediately. Within the picker,
-`j/k` select entries and `h/l` collapse/expand them. Enter selects an entry and
-activates persistent window controls. Escape or `q` cancels to normal input.
+Prefix `w` enters persistent window controls immediately. Press `p` in window
+mode to open the built-in window picker. Within the picker, `j/k` select entries
+and `h/l` collapse/expand them. Enter selects an entry and returns to window
+controls. Escape or `q` cancels to normal input.
 
 | Key | Action |
 | --- | --- |
@@ -91,7 +92,7 @@ activates persistent window controls. Escape or `q` cancels to normal input.
 | `0`–`9` | Select window by number |
 | `c` | Create window in the current directory |
 | `r` | Rename window |
-| `w` | Reopen window picker |
+| `p` | Open window picker; selection returns to window controls |
 | `s` | Open session picker; selection returns to window controls |
 | `x` | Close window, with confirmation |
 

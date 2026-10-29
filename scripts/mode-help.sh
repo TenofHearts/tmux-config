@@ -35,7 +35,8 @@ Window/session picker controls (tmux 3.2+):
   x / X            Close selected / tagged items (confirmation)
   [shortcut]       Select the item with the shortcut shown beside it
 
-Selecting in the window picker enters persistent window mode.
+Open the window picker with p in window mode (prefix+w).
+Selecting in the window picker returns to persistent window mode.
 The session picker opened by prefix+s returns to normal input; opened from
 window mode, it returns to window mode after selection.
 HELP
