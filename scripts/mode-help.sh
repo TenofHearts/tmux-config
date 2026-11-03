@@ -1,15 +1,27 @@
 #!/bin/sh
-# Called in a popup after leaving the original mode. --print reads the help
+# Called in a popup over the original mode. --print reads the help
 # without opening a pager, for documentation and configuration checks.
 set -eu
 mode=${1:?mode required}
 socket=${2:?tmux socket required}
 
+case "$mode" in
+    prefix) title='Command mode' ;;
+    tmux-window) title='Window mode' ;;
+    tmux-resize) title='Resize mode' ;;
+    copy-mode|copy-mode-vi) title='Copy mode' ;;
+    windows-picker) title='Window picker' ;;
+    sessions-picker) title='Session picker' ;;
+    *) printf 'Unknown mode: %s\n' "$mode" >&2; exit 1 ;;
+esac
+
 help_text() {
-    printf 'TMUX HELP: %s\n\n' "$mode"
-    printf 'The original mode has been exited. Quit help to return to terminal input.\n'
-    printf 'Pager: j/k or arrows scroll, Space next page, / searches, q quits.\n\n'
+    printf '%s — key bindings\n\n' "$title"
+    printf '  j/k or arrows: scroll   Space: next page   /: search   q: close\n\n'
     case "$mode" in
+        prefix)
+            tmux -S "$socket" list-keys -aN -T prefix
+            ;;
         windows-picker|sessions-picker)
             cat <<'HELP'
 Window/session picker controls (tmux 3.2+):
@@ -20,7 +32,7 @@ Window/session picker controls (tmux 3.2+):
   l / +            Expand selected item
   Enter            Select item
   Escape / q       Cancel picker and return to normal input
-  ?                Exit picker and show this help
+  ?                Show help; close it to return to the picker
   Alt+- / Alt++    Collapse / expand all items
   Ctrl+s           Search by name
   n                Repeat search
@@ -49,13 +61,11 @@ HELP
             return 1
             ;;
     esac
-    printf '\nPress ? in a mode or picker to exit it and open help.\n'
-    printf 'Custom modes: Enter/Escape exit; unbound keys are ignored.\n'
-    printf 'Actions stay in their mode until you explicitly exit or open help.\n'
+    printf '\nClose help to return to the original mode or picker.\n'
 }
 
 if [ "${3-}" = --print ]; then
     help_text
 else
-    help_text | less -R
+    help_text | LESS= LESSOPEN= LESSCLOSE= less -R -~ -i -P " $title help | j/k scroll | / search | q close "
 fi

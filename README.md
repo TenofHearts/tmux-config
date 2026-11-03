@@ -56,9 +56,11 @@ stays in that mode, including create, rename, and confirmed close.
 **Enter or Escape exits** to normal terminal input. Unbound keys are ignored. Closing the last pane/window can still end its
 session. Prefix shortcuts remain available for changing modes or detaching.
 
-**`?` lists all key bindings in command mode.** In other modes it opens help
-for the current mode in a scrollable `less` popup. It exits
-the original mode/picker first; `q` closes help and returns to normal input.
+**`?` opens help for the current mode in a floating tmux popup**, including
+command mode (Ctrl+a then `?`). Bindings use tmux's native key-and-description
+listing, with a mode title and a navigation hint. Press `q` to close help
+and return to the original mode or picker. Copy selections, scroll positions,
+and picker state stay in place beneath the popup.
 Help supports arrows, page scrolling, and `/` search. Custom-mode help is
 generated from the active bindings and their descriptions; built-in picker
 controls are documented separately in the helper script.
@@ -137,7 +139,7 @@ Prefix `c` creates a window; `%` splits side by side; `"` splits top and bottom.
 The split aliases also stay in command mode; creating a window returns to
 normal input. Prefix `n` selects the next window; prefix **`b`** selects the
 previous window; prefix `p` also selects the previous window. Prefix `d` detaches.
-Prefix `?` lists all bindings. Prefix `]` pastes the tmux buffer. Prefix `_`
+Prefix `?` opens command-mode help. Prefix `]` pastes the tmux buffer. Prefix `_`
 deletes the latest paste buffer; prefix `+` opens the buffer picker (formerly
 `-` and `=`).
 
