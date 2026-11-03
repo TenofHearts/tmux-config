@@ -45,19 +45,19 @@ canceling prompts feels immediate.
 
 | Entry | Mode | Badge color |
 | --- | --- | --- |
-| Prefix `Ctrl+a` | Command mode, waiting for the next key | Yellow |
+| Prefix `Ctrl+a` | Command mode, including pane controls | Yellow |
 | Prefix `w` | Window controls | Blue |
-| Prefix `p` | Pane controls | Green |
 | Prefix `r` | Resize controls | Orange |
 | Prefix `s` | Built-in session picker | Blue |
 | Prefix `[` | Built-in copy mode, with vi navigation | Purple |
 
-Every action in the three custom modes stays in that mode, including create,
-split, rename, and confirmed close. **Enter or Escape exits** to normal terminal
-input. Unbound keys are ignored. Closing the last pane/window can still end its
+Pane actions stay in command mode. Every action in window and resize modes
+stays in that mode, including create, rename, and confirmed close.
+**Enter or Escape exits** to normal terminal input. Unbound keys are ignored. Closing the last pane/window can still end its
 session. Prefix shortcuts remain available for changing modes or detaching.
 
-**`?` opens help** for the current mode in a scrollable `less` popup. It exits
+**`?` lists all key bindings in command mode.** In other modes it opens help
+for the current mode in a scrollable `less` popup. It exits
 the original mode/picker first; `q` closes help and returns to normal input.
 Help supports arrows, page scrolling, and `/` search. Custom-mode help is
 generated from the active bindings and their descriptions; built-in picker
@@ -67,7 +67,7 @@ Outside modes, `?` is forwarded to the application. In copy mode, `?` opens
 help in place of backward search; `/` still searches forward.
 While a rename/confirmation prompt is open,
 keys belong to that prompt. Enter accepts a rename; **x confirms closing** a
-pane/window and **Escape cancels**, returning to the custom mode. Close prompts
+pane/window and **Escape cancels**, returning to the command/window mode. Close prompts
 display `x: yes | Esc: no` in the status bar. The direct prefix `x` (close pane)
 and prefix `&` (close window) shortcuts use these same confirmation keys.
 The built-in pickers' own `x`/`X` delete prompts use tmux's fixed `y` confirmation
@@ -99,22 +99,26 @@ controls. Escape or `q` cancels to normal input.
 The session picker opened directly by prefix `s` returns to normal input after
 selection. Either picker can be canceled with Escape or `q`.
 
-### Pane mode
+### Pane controls in command mode
 
 | Key | Action |
 | --- | --- |
 | `h/j/k/l`, arrow keys | Focus left/down/up/right |
 | Tab | Previously active pane |
-| `\|` | Split side by side |
-| `-` or `=` | Split top and bottom |
+| `=` | Split side by side |
+| `-` | Split top and bottom |
 | `z` | Toggle focused pane zoom |
 | Space | Cycle layouts |
 | `{` / `}` | Swap with previous / next pane |
 | `!` | Move pane into its own window |
 | `x` | Close pane, with confirmation |
 
-All splits start in the current pane's directory. After splitting, exit pane
-mode with Enter or Escape before typing into the new terminal.
+Press Ctrl+a to enter command mode, then use these keys directly. Pane actions
+keep command mode active, so navigation can be repeated without another prefix.
+Enter or Escape returns to terminal input; unbound keys are ignored. All splits
+start in the current pane's directory. After splitting, exit command mode before
+typing into the new terminal. Previously active window remains available through
+window mode Tab.
 
 ### Resize mode
 
@@ -130,10 +134,12 @@ Even layouts rearrange panes as well as resize them.
 ### Direct shortcuts
 
 Prefix `c` creates a window; `%` splits side by side; `"` splits top and bottom.
-These direct shortcuts retain ordinary tmux behavior rather than entering a
-custom mode. Prefix `n` selects the next window; prefix **`b`** selects the
-previous window (prefix `p` now enters pane mode). Prefix `d` detaches.
-Prefix `?` lists all bindings. Prefix `]` pastes the tmux buffer.
+The split aliases also stay in command mode; creating a window returns to
+normal input. Prefix `n` selects the next window; prefix **`b`** selects the
+previous window; prefix `p` also selects the previous window. Prefix `d` detaches.
+Prefix `?` lists all bindings. Prefix `]` pastes the tmux buffer. Prefix `_`
+deletes the latest paste buffer; prefix `+` opens the buffer picker (formerly
+`-` and `=`).
 
 In copy mode, `h/j/k/l` navigate, Space starts selection, Enter copies and exits,
 and `q` or Escape exits. Copying uses tmux's buffer; clipboard behavior depends on terminal

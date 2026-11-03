@@ -41,7 +41,7 @@ The session picker opened by prefix+s returns to normal input; opened from
 window mode, it returns to window mode after selection.
 HELP
             ;;
-        tmux-window|tmux-pane|tmux-resize|copy-mode|copy-mode-vi)
+        tmux-window|tmux-resize|copy-mode|copy-mode-vi)
             tmux -S "$socket" list-keys -aN -T "$mode"
             ;;
         *)
