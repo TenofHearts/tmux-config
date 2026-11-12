@@ -62,7 +62,8 @@ listing, with a mode title and a navigation hint. Press `q` to close help
 and return to the original mode or picker. Copy selections, scroll positions,
 and picker state stay in place beneath the popup.
 Help supports arrows, page scrolling, and `/` search. Custom-mode help is
-generated from the active bindings and their descriptions; built-in picker
+generated from active bindings with descriptions; bindings without descriptions
+are omitted so raw tmux commands never appear in help; built-in picker
 controls are documented separately in the helper script.
 
 Outside modes, `?` is forwarded to the application. In copy mode, `?` opens

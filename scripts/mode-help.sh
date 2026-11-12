@@ -15,12 +15,13 @@ case "$mode" in
     *) printf 'Unknown mode: %s\n' "$mode" >&2; exit 1 ;;
 esac
 
+# Only show bindings with notes; -a would expose raw commands for unnoted keys.
 help_text() {
     printf '%s — key bindings\n\n' "$title"
     printf '  j/k or arrows: scroll   Space: next page   /: search   q: close\n\n'
     case "$mode" in
         prefix)
-            tmux -S "$socket" list-keys -aN -T prefix
+            tmux -S "$socket" list-keys -N -T prefix
             ;;
         windows-picker|sessions-picker)
             cat <<'HELP'
@@ -54,7 +55,7 @@ window mode, it returns to window mode after selection.
 HELP
             ;;
         tmux-window|tmux-resize|copy-mode|copy-mode-vi)
-            tmux -S "$socket" list-keys -aN -T "$mode"
+            tmux -S "$socket" list-keys -N -T "$mode"
             ;;
         *)
             printf 'Unknown mode: %s\n' "$mode" >&2
