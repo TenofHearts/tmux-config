@@ -38,8 +38,10 @@ to pick up this setting. In an existing zsh pane, run
 ## Bindings
 
 The prefix is **Ctrl+a**: release both keys, then press the next key. Press
-Ctrl+a twice to send it to the application. Mouse support is enabled;
-automatic window renaming is disabled.
+Ctrl+a twice to send it to the application. Drag to copy as usual. Right-click
+in a shell pane to paste the latest tmux buffer. Use the terminal's paste shortcut
+for the system clipboard. Mouse-aware programs keep their own right-click.
+Automatic window renaming is disabled.
 Escape waits only 10 ms for a possible Alt-key sequence, so exiting modes and
 canceling prompts feels immediate.
 
